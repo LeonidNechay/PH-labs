@@ -1,0 +1,1 @@
+a:3:{i:0;a:5:{s:2:"id";i:0;s:7:"address";s:9:"Mukachevo";s:4:"name";s:5:"Shell";s:6:"liters";i:1000;s:5:"price";i:52;}i:1;a:5:{s:2:"id";i:1;s:7:"address";s:8:"Uzhhorod";s:4:"name";s:4:"Okko";s:6:"liters";i:1400;s:5:"price";i:50;}i:2;a:5:{s:2:"id";i:2;s:7:"address";s:4:"Kyiv";s:4:"name";s:11:"Gas Station";s:6:"liters";s:4:"1234";s:5:"price";s:2:"43";}}
