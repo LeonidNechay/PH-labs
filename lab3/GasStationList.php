@@ -44,13 +44,11 @@ class GasStationList
                 <th>Liters</th>
                 <th>Price</th>
                </tr>";
-        for ($i = 0; $i < count($this->gasStationsData()); $i++) {
+        foreach ($this->gasStations as $gasS) {
             echo "<tr>";
-            foreach ($this->gasStations as $gasS) {
-                foreach ($gasS as $item)
-                {
+            foreach ($gasS as $item)
+            {
                     echo "<td>$item</td>";
-                }
             }
             echo "</tr>";
         }
@@ -72,36 +70,34 @@ class GasStationList
             $gasStation->name = $array['name'];
             $gasStation->liters = $array['liters'];
             $gasStation->price = $array['price'];
+            $this->gasStations[$array['id']] = $gasStation;
         }
     }
 
     public function isGasAvailable($name, $liters)
     {
-        $newArr = [];
-        for($i = 0, count($this->gasStationsData()); $i++;)
+        for($i = 0; $i < count($this->gasStations); $i++)
         {
-            if($this->gasStations['name'] == $name && $this->gasStations['liters'] >= $liters)
+            if($this->gasStations[$i]['name'] == $name && $this->gasStations[$i]['liters'] >= $liters)
             {
-                array_push($newArr, $this->gasStations[$i]);
-            }
-        }
-        echo "<table>";
-        echo "<tr>
-        <th>Id</th>
-        <th>Adress</th>
-        <th>Name</th>
-        <th>Liters</th>
-        <th>Price</th>
-      </tr>";
+                echo "<table>";
+                echo "<tr>
+                <th>Id</th>
+                <th>Adress</th>
+                <th>Name</th>
+                <th>Liters</th>
+                <th>Price</th>
+              </tr>";
 
-        for ($i = 0; $i < count($newArr); $i++) {
-            echo "<tr>";
-            foreach ($newArr[$i] as $key => $value) {
-                echo "<td>$value</td>";
+                echo "<tr>";
+                foreach ($this->gasStations[$i] as $value) {
+                    echo "<td>$value</td>";
+                }
+                echo "</tr>";
+                echo "</table>";
+                break;
             }
-            echo "</tr>";
         }
-        echo "</table>";
     }
 
     public function saveGasStations()

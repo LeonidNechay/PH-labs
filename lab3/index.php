@@ -10,7 +10,7 @@ if (empty($_SESSION)) {
     $_SESSION['GasStation']->GasStationsData();
 }
 
-echo $_SESSION['GasStation']->showTable();
+$_SESSION['GasStation']->showTable();
 
 if($_POST['action'] =="save"){
     $_SESSION['GasStation']->saveGasStations();
@@ -21,7 +21,7 @@ elseif ($_POST['action'] =="load")
 }
 elseif ($_POST['action'] == 'add') {
     if (GasStation:: checkGasStation($_POST)) {
-        $counter = count($_SESSION['GasStation']->gasStationsData());
+        $counter = count($_SESSION['GasStation']->gasStations);
         $_SESSION['GasStation']->addGasStation(new GasStation($counter, $_POST));
     }
     $_POST = null;
@@ -31,6 +31,9 @@ elseif ($_POST['action'] == 'edit') {
         $_SESSION['GasStation']->editGasStation($_POST);
     }
     $_POST = null;
+}
+elseif ($_POST['action'] == 'isGasAvailable'){
+    $_SESSION['GasStation']->isGasAvailable($_POST['name'], $_POST['liters']);
 }
 ?>
 

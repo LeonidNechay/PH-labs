@@ -8,7 +8,7 @@ class GasStation
     public $liters;
     public $price;
 
-    public function GasStation($id, $array) {
+    public function __construct($id, $array) {
         $this->id = $id;
         $this->address = $array["address"];
         $this->name = $array["name"];
