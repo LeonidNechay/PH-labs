@@ -43,12 +43,12 @@ class GasStationList
 
     public function editGasStation($arr)
     {
-        $this->dbh->query('UPDATE GasStations SET ' .
-            'address = ' . $arr['address'] . ', ' .
-            'fullname = ' . $arr['fullname'] . ', ' .
+        $this->dbh->exec('UPDATE GasStations SET ' .
+            'address = "' . $arr['address'] . '" , ' .
+            'fullname = "' . $arr['fullname'] . '" , ' .
             'liters = ' . $arr['liters'] . ', ' .
-            'price = ' . $arr['price'] . ' , ' .
-            'WHERE id = ' . $arr['id']);
+            'price = ' . $arr['price'] .
+            ' WHERE `id` = ' . $arr['id']);
     }
 
     public function isGasAvailable($name, $liters)
@@ -62,26 +62,25 @@ class GasStationList
                 array_push($newArr, $item);
             }
         }
-        for($i = 0; $i < count($newArr); $i++)
-        {
-            echo "<table>";
-            echo "<tr>
+        echo "<table>";
+        echo "<tr>
                     <th>Id</th>
                     <th>Address</th>
                     <th>Name</th>
                     <th>Liters</th>
                     <th>Price</th>
                   </tr>";
-
+        for($i = 0; $i < count($newArr); $i++)
+        {
             $values = "";
             $values .= "<td>" .$newArr[$i]['id'] . "</td><td>" .$newArr[$i]['address'] ."</td><td>" .$newArr[$i]['fullname'] ."</td><td>" .$newArr[$i]['liters'] ."</td><td>" .$newArr[$i]['price'] ."</td>";
             echo "<tr>";
             echo $values;
             echo "</tr>";
-            echo "</table>";
-            echo "<br>";
             break;
         }
+        echo "</table>";
+        echo "<br>";
         $_POST = null;
     }
 
@@ -106,7 +105,16 @@ class GasStationList
             $part = fread($file, 1);
             $text .= $part;
         }
-        $this->gasStations = unserialize($text);
+        foreach (unserialize($text) as $item)
+        {
+            $this->dbh->query('INSERT INTO GasStations(id, address, fullname, liters, price) VALUES ('
+                . $item['id'] . ", " .
+                "'" . $item['address'] . "', " .
+                "'" . $item['fullname'] . "', " .
+                $item['liters'] . ", " .
+                $item['price'] . ")");
+        };
+        var_dump($this->dbh->errorInfo());
         fclose($file);
         $_POST = null;
     }
